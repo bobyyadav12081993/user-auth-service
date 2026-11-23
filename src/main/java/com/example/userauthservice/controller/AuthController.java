@@ -17,9 +17,11 @@ import com.example.userauthservice.dto.UserDto;
 import com.example.userauthservice.model.Role;
 import com.example.userauthservice.model.User;
 import com.example.userauthservice.service.IAuthService;
+import com.example.userauthservice.service.JwtService;
 
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.JwtException;
+import jakarta.validation.Valid;
 
 @RestController
 @RequestMapping("/auth")
@@ -30,7 +32,7 @@ public class AuthController {
      private final JwtService jwtService;
 
     @PostMapping ("/signup")
-    public ResponseEntity<UserDto> signup(@RequestBody AuthRequest authRequest) {
+    public ResponseEntity<UserDto> signup(@Valid @RequestBody AuthRequest authRequest) {
         User user = authService.signup(authRequest.getEmail(), authRequest.getPassword());
 
         if(user == null) {
